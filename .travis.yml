@@ -7,15 +7,10 @@ addons:
   apt:
     packages: [ libjson-c-dev ]
 
-libjson-c-dev
-
 matrix:
   include:
   - os: linux
     compiler: clang
     env: COVERITY_SCAN_PROJECT_NAME="FRRouting" COVERITY_SCAN_BRANCH_PATTERN="*" COVERITY_SCAN_NOTIFICATION_EMAIL="chipitsine@gmail.com" COVERITY_SCAN_BUILD_COMMAND_PREPEND="autoreconf -vi && ./configure" COVERITY_SCAN_BUILD_COMMAND="make"
     script:
-      - autoreconf -iv .
-      - ./configure
-      - make
-
+      - autoreconf -iv . && ./configure && make
