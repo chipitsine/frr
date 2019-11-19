@@ -5,7 +5,7 @@ language: c
 
 addons:
   apt:
-    packages: [ libjson-c-dev ]
+    packages: [ libjson-c-dev, libc-ares-dev ]
 
 matrix:
   include:
