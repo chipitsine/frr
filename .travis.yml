@@ -3,14 +3,24 @@ dist: bionic
 
 language: c
 
+addons:
+  apt:
+    packages: [ libjson-c-dev ]
+
+libjson-c-dev
+
 matrix:
   include:
   - os: linux
     compiler: clang
-    env: TARGET=linux-glibc OPENSSL_VERSION=1.1.1d COVERITY_SCAN_PROJECT_NAME="FRRouting" COVERITY_SCAN_BRANCH_PATTERN="*" COVERITY_SCAN_NOTIFICATION_EMAIL="chipitsine@gmail.com" COVERITY_SCAN_BUILD_COMMAND_PREPEND="autoreconf -vi && ./configure" COVERITY_SCAN_BUILD_COMMAND="make"
+    env: COVERITY_SCAN_PROJECT_NAME="FRRouting" COVERITY_SCAN_BRANCH_PATTERN="*" COVERITY_SCAN_NOTIFICATION_EMAIL="chipitsine@gmail.com" COVERITY_SCAN_BUILD_COMMAND_PREPEND="autoreconf -vi && ./configure" COVERITY_SCAN_BUILD_COMMAND="make"
+#    script:
+#      - |
+#        if [ ! -z ${COVERITY_SCAN_TOKEN+x} ]; then
+#          curl -s "https://scan.coverity.com/scripts/travisci_build_coverity_scan.sh" | bash || true
+#        fi
     script:
-      - |
-        if [ ! -z ${COVERITY_SCAN_TOKEN+x} ]; then
-          curl -s "https://scan.coverity.com/scripts/travisci_build_coverity_scan.sh" | bash || true
-        fi
+      - autoreconf -iv .
+      - ./configure
+      - make
 
