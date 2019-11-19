@@ -13,4 +13,9 @@ matrix:
     compiler: clang
     env: COVERITY_SCAN_PROJECT_NAME="FRRouting" COVERITY_SCAN_BRANCH_PATTERN="*" COVERITY_SCAN_NOTIFICATION_EMAIL="chipitsine@gmail.com" COVERITY_SCAN_BUILD_COMMAND_PREPEND="autoreconf -vi && ./configure" COVERITY_SCAN_BUILD_COMMAND="make"
     script:
-      - autoreconf -iv . && ./configure --disable-doc && make
+      - |
+        if [ ! -z ${COVERITY_SCAN_TOKEN+x} ]; then
+          make -C contrib/wurfl
+          curl -s "https://scan.coverity.com/scripts/travisci_build_coverity_scan.sh" | bash || true
+        fi
+
