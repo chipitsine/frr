@@ -5,7 +5,7 @@ language: c
 
 addons:
   apt:
-    packages: [ libjson-c-dev, libc-ares-dev, sphinx-common ]
+    packages: [ libjson-c-dev, libc-ares-dev ]
 
 matrix:
   include:
@@ -13,4 +13,4 @@ matrix:
     compiler: clang
     env: COVERITY_SCAN_PROJECT_NAME="FRRouting" COVERITY_SCAN_BRANCH_PATTERN="*" COVERITY_SCAN_NOTIFICATION_EMAIL="chipitsine@gmail.com" COVERITY_SCAN_BUILD_COMMAND_PREPEND="autoreconf -vi && ./configure" COVERITY_SCAN_BUILD_COMMAND="make"
     script:
-      - autoreconf -iv . && ./configure && make
+      - autoreconf -iv . && ./configure --disable-doc && make
